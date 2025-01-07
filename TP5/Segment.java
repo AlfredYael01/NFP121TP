@@ -1,5 +1,5 @@
 import java.awt.Color;
-
+import afficheur.Ecran;
 /** Un segment est défini pas ses deux points qui constituent ses
  * extrémités.  Un segment peut être affiché et translaté.
  *
@@ -71,6 +71,13 @@ public class Segment {
 	 */
 	public void setCouleur(Color nouvelleCouleur) {
 		this.couleur = nouvelleCouleur;
+	}
+
+	//methode dessiner
+	public void dessiner(Ecran ecran) {
+		ecran.dessinerLigne(this.extremite1.getX(), this.extremite1.getY(),
+				this.extremite2.getX(), this.extremite2.getY(),
+				this.couleur);
 	}
 
 }

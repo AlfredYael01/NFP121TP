@@ -10,6 +10,8 @@ class ExempleEcran {
 	public static void main(String[] args) {
 		// Construire un écran
 		Ecran ecran = new Ecran("ExempleEcran",400, 250, 15);
+		//dessiner les axes
+		ecran.dessinerAxes();
 		// Dessiner un point vert de coordonnées (1, 2)
 		ecran.dessinerPoint(1, 2, Color.GREEN);
 		// Dessiner un segment rouge d'extrémités (6, 2) et (11, 9)

@@ -1,4 +1,4 @@
-
+import afficheur.Ecran;
 /** Construire le schéma proposé dans le sujet de TP avec des points,
   * et des segments.
   *
@@ -13,6 +13,8 @@ public class ExempleSchema1 {
 	  */
 	public static void main(String[] args)
 	{
+		//Creer un ecran de 600x400
+		Ecran ecran = new Ecran("ExempleSchema1", 600,400,20);
 		// Créer les trois segments
 		Point p1 = new Point(3, 2);
 		Point p2 = new Point(6, 9);
