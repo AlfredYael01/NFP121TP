@@ -39,6 +39,26 @@ public class ExempleSchema1 {
 		s12.dessiner(ecran);
 		s23.dessiner(ecran);
 		s31.dessiner(ecran);
+
+
+
+		// Translater les segments et le barrycentre
+		s12.translater(4,-3);
+		s23.translater(4,-3);
+		s31.translater(4,-3);
+		barycentre.translater(4,-3);
+
+		//afficher  le schema
+		System.out.println("Le schéma après translation est composé de : ");
+		s12.afficher();		System.out.println();
+		s23.afficher();		System.out.println();
+		s31.afficher();		System.out.println();
+		p1.dessiner(ecran);
+		p2.dessiner(ecran);
+		p3.dessiner(ecran);
+		s12.dessiner(ecran);
+		s23.dessiner(ecran);
+		s31.dessiner(ecran);
 	}
 
 }
