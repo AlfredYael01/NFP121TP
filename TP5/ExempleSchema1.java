@@ -33,7 +33,12 @@ public class ExempleSchema1 {
 		s12.afficher();		System.out.println();
 		s23.afficher();		System.out.println();
 		s31.afficher();		System.out.println();
-		barycentre.afficher();	System.out.println();
+		p1.dessiner(ecran);
+		p2.dessiner(ecran);
+		p3.dessiner(ecran);
+		s12.dessiner(ecran);
+		s23.dessiner(ecran);
+		s31.dessiner(ecran);
 	}
 
 }
