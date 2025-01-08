@@ -1,4 +1,5 @@
 import afficheur.Ecran;
+import afficheur.AfficheurTexte;
 import afficheur.AfficheurSVG;
 import java.awt.Color;
 /** Construire le schéma proposé dans le sujet de TP avec des points,
@@ -79,6 +80,16 @@ public class ExempleSchema1 {
 		svg.dessinerLigne(p3.getX(), p3.getY(), p1.getX(), p1.getY(), Color.BLACK);
 		svg.dessinerTexte(barycentre.getX(), barycentre.getY(), "Barycentre", Color.BLACK);
 		svg.ecrire("schema.svg");
+
+		//afficher les textes des points, des segments et du cercle
+		AfficheurTexte afficheurTexte = new AfficheurTexte();
+		System.out.println(afficheurTexte.afficherTextePoint(p1.getX(), p1.getY(), Color.BLACK));
+		System.out.println(afficheurTexte.afficherTextePoint(p2.getX(), p2.getY(), Color.BLACK));
+		System.out.println(afficheurTexte.afficherTextePoint(p3.getX(), p3.getY(), Color.BLACK));
+		System.out.println(afficheurTexte.afficherTexteSegment(p1.getX(), p1.getY(), p2.getX(), p2.getY(), Color.BLACK));
+		System.out.println(afficheurTexte.afficherTexteSegment(p2.getX(), p2.getY(), p3.getX(), p3.getY(), Color.BLACK));
+		System.out.println(afficheurTexte.afficherTexteSegment(p3.getX(), p3.getY(), p1.getX(), p1.getY(), Color.BLACK));
+		System.out.println(afficheurTexte.afficherTexteCercle(barycentre.getX(), barycentre.getY(), 3, Color.BLACK));
 	}
 
 }

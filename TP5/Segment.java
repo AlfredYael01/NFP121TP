@@ -21,7 +21,13 @@ public class Segment {
 		this.extremite2 = ext2;
 		this.couleur = Color.green;
 	}
+	public Point getExtremite1() {
+		return extremite1;
+	}
 
+	public Point getExtremite2() {
+		return extremite2;
+	}
    /** Translater le segment.
 	* @param dx déplacement suivant l'axe des X
 	* @param dy déplacement suivant l'axe des Y

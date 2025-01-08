@@ -20,6 +20,7 @@ class ExempleEcran {
 		ecran.dessinerCercle(4, 3, 2.5, Color.YELLOW);
 		// Dessiner le texte "Premier dessin" en bleu à la position (1, -2)
 		ecran.dessinerTexte(1,-2,"Premier dessin", Color.BLUE);
+
 	}
 
 }
