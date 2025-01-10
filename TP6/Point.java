@@ -7,7 +7,7 @@ import java.awt.Color;
  *
  * @author  Xavier Crégut <Prénom.Nom@enseeiht.fr>
  */
-public final class Point {
+public class Point {
 	private double x;		// abscisse
 	private double y;		// ordonnée
 
@@ -56,7 +56,7 @@ public final class Point {
 	}
 
 	/** Afficher le point. */
-	public final void afficher() {
+	public void afficher() {
 		System.out.print("(" + this.x + ", " + this.y + ")");
 	}
 
