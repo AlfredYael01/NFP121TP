@@ -47,5 +47,16 @@
         </SOURCES>
       </library>
     </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/TP7/TP07.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/TP7/TP07.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
   </component>
 </module>

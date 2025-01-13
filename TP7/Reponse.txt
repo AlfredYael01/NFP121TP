@@ -1,0 +1,29 @@
+Exercice 1
+1.1
+Indiquer à quelles conditions sur X les lignes suivantes compilent.
+ 1 schema[nb++] = s12;
+ 2 schema[nb++] = barycentre;
+ 3 schema[i].afficher();
+ 4 schema[i].translater(4,-3);
+
+Voici les conditions sur X pour que les lignes compilent :
+schema[nb++] = s12; : s12 est un Segment, donc X doit être Segment ou une superclasse de Segment.
+schema[nb++] = barycentre; : barycentre est un Point, donc X doit être Point ou une superclasse de Point.
+schema[i].afficher(); : afficher doit être une méthode définie dans X.
+schema[i].translater(4, -3); : translater doit être une méthode définie dans X.
+
+1.2
+ Quel code sera exécuté pour x.afficher() et x.translater(4,-3)?
+
+ les classes Point et Segment implémentent ces méthodes via l'interface ElementSchema.
+
+ 1.3
+ Indiquer les autres éléments à définir sur X? Justifier la réponse
+
+    Il faut définir les méthodes de l'interface ElementSchema, c'est-à-dire afficher et translater.
+
+1.4
+Donner un nom plus significatif à X.
+
+Un nom plus significatif pour X serait ElementSchema.
+
