@@ -15,15 +15,81 @@ schema[i].translater(4, -3); : translater doit être une méthode définie dans 
 1.2
  Quel code sera exécuté pour x.afficher() et x.translater(4,-3)?
 
- les classes Point et Segment implémentent ces méthodes via l'interface ElementSchema.
+x.afficher()` exécutera la méthode `afficher()` de l'instance spécifique référencée par `x` :
+        - Si `x` est un `Point`, la méthode `afficher()` de `Point` sera appelée.
+        - Si `x` est un `PointNomme`, la méthode `afficher()` de `PointNomme` (qui appelle aussi `Point.afficher()`) sera exécutée.
+        - Si `x` est un `Segment`, la méthode `afficher()` de `Segment` (qui affiche les deux extrémités du segment) sera exécutée.
+
+    - `x.translater(4, -3)` appliquera une translation de `(4, -3)` :
+        - Pour un `Point` ou un `PointNomme`, cela déplacera le point en modifiant ses coordonnées.
+        - Pour un `Segment`, la méthode translatera ses deux points extrémités.
+
 
  1.3
  Indiquer les autres éléments à définir sur X? Justifier la réponse
 
-    Il faut définir les méthodes de l'interface ElementSchema, c'est-à-dire afficher et translater.
-
+X doit définir ou être une interface contenant au minimum :
+        - Une méthode `afficher()`, pour garantir l’affichage des objets dans le tableau `schema`.
+        - Une méthode `translater(double dx, double dy)`, car elle est utilisée dans la boucle de translation.
+        - Une méthode `dessiner(Afficheur a)`, car elle est utilisée pour afficher graphiquement le schéma.
 1.4
 Donner un nom plus significatif à X.
 
-Un nom plus significatif pour X serait ElementSchema.
+Un nom plus approprié pour `X` serait `FormeGeometrique`, `ElementGraphique` ou `ObjetGraphique`,
+    car ce type regroupe des entités géométriques (points et segments) ayant des comportements communs.
 
+
+Exercice 2
+
+2.1. Est-ce que l’on sait écrire le code des méthodes afficher ou translater de X?
+
+    - Oui, mais seulement de manière abstraite, car `X` représente à la fois des `Point` et des `Segment`,
+      qui ont des implémentations spécifiques pour `afficher()` et `translater()`.
+    - Une solution est de déclarer `X` comme une classe abstraite avec ces méthodes.
+
+2.2. Peut-on créer des instances de X?
+
+    - Si `X` est une classe abstraite, non, car une classe abstraite ne peut pas être instanciée directement.
+    - Cela permet d’éviter d’avoir une entité générique sans comportement défini.
+    - `X` est utilisée pour regrouper `Point`, `PointNomme` et `Segment`, qui eux peuvent être instanciés.
+
+2.3. Quels constructeurs définir sur X?
+
+    - Un constructeur protégé (pour empêcher l'instanciation directe) qui initialise les attributs communs à toutes les formes géométriques.
+    - Par exemple, un attribut `couleur`.
+
+2.4. Quand ces constructeurs seront-ils appelés?
+
+    - Lorsqu’une sous-classe (`Point`, `Segment`, etc.) appelle `super(...)` dans son propre constructeur.
+    - Ainsi, l'initialisation définie dans `X` sera appliquée à toutes les formes.
+
+2.6. Lister et effectuer les modifications à apporter aux autres classes de l’application.
+
+    - Modifier `Point`, `PointNomme` et `Segment` pour qu’ils héritent de `FormeGeometrique` :
+      - Remplacer `extends Object` par `extends FormeGeometrique`.
+      - Supprimer l’attribut `couleur` redondant.
+      - Adapter leurs méthodes `afficher()`, `translater()`, et `dessiner(Afficheur a)` pour correspondre à la classe mère.
+
+    - Modifier `ExempleSchemaTab` pour remplacer `X` par `FormeGeometrique` :
+      - `FormeGeometrique schema[] = new FormeGeometrique[10];`
+
+Exercice 3
+
+3.1. Indiquer les avantages et inconvénients des listes par rapport aux tableaux.
+
+    Avantages des listes (ArrayList) :
+    - Taille dynamique : Contrairement aux tableaux, les `ArrayList` peuvent changer de taille dynamiquement. On n’a pas besoin de connaître à l’avance le nombre d’éléments à stocker.
+    - Méthodes pratiques : `ArrayList` fournit de nombreuses méthodes utiles comme `add()`, `remove()`, et `contains()`, ce qui facilite la gestion des éléments.
+    - Support des boucles `foreach` : Les listes permettent d’utiliser des boucles `foreach` pour itérer sur les éléments plus facilement.
+
+    Inconvénients des listes :
+    - Performance : Les listes peuvent être légèrement moins performantes que les tableaux en termes de consommation de mémoire et d'accès direct, car elles utilisent des structures internes pour gérer leur taille dynamique.
+    - Gestion des types primitifs : Les listes ne peuvent pas contenir directement des types primitifs (int, double, etc.) sans les encapsuler dans des objets (par exemple, `Integer` pour `int`).
+
+Exercice 4
+
+4.1. Sachant que la classe X est abstraite, la classe Groupe est-elle abstraite ou concrète?
+
+    - La classe `Groupe` est concrète, car elle représente un ensemble d’éléments graphiques (points, segments ou d'autres groupes).
+    - Elle ne doit pas être abstraite car elle peut être instanciée pour contenir des objets.
+    - Elle doit implémenter les méthodes `afficher()`, `translater()`, et `dessiner()` en les appliquant à chaque élément du groupe.
