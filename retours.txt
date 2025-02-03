@@ -12,3 +12,11 @@ TP07 :
 - La classe ExempleSchema n'est pas sur Git...
 - Le code n'a pas été modifié...
 - OK pour Reponses.txt
+
+TP09 :
+
+- Cellule :
+	+ Les attributs devraient être privés (même si légitime ici).
+	+ Il faudrait ajouter accesseurs et modifieurs.
+- EnsembleOrdonneChaine :
+	+ pourquoi redéfinir taille, estVide, etc.
