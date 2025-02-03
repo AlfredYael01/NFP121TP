@@ -1,8 +1,8 @@
 /**
- * Implémentation d'un ensemble d'entiers ordonné sous forme de liste chaînée triée.
+ * Implémentation d'un ensemble ordonné générique sous forme de liste chaînée triée.
  */
-public class EnsembleOrdonneChaine implements EnsembleOrdonne {
-    private Cellule tete;
+public class EnsembleOrdonneChaine<T extends Comparable<T>> implements EnsembleOrdonne<T> {
+    private Cellule<T> tete;
     private int taille;
 
     public EnsembleOrdonneChaine() {
@@ -21,10 +21,10 @@ public class EnsembleOrdonneChaine implements EnsembleOrdonne {
     }
 
     @Override
-    public boolean contient(int x) {
-        Cellule courant = tete;
-        while (courant != null && courant.valeur <= x) {
-            if (courant.valeur == x) {
+    public boolean contient(T x) {
+        Cellule<T> courant = tete;
+        while (courant != null && courant.valeur.compareTo(x) <= 0) {
+            if (courant.valeur.equals(x)) {
                 return true;
             }
             courant = courant.suivant;
@@ -33,15 +33,15 @@ public class EnsembleOrdonneChaine implements EnsembleOrdonne {
     }
 
     @Override
-    public void ajouter(int x) {
+    public void ajouter(T x) {
         if (!contient(x)) {
-            Cellule nouvelle = new Cellule(x, null);
-            if (tete == null || tete.valeur > x) { // Insertion en tête
+            Cellule<T> nouvelle = new Cellule<>(x, null);
+            if (tete == null || tete.valeur.compareTo(x) > 0) {
                 nouvelle.suivant = tete;
                 tete = nouvelle;
-            } else { // Insertion à la bonne position
-                Cellule courant = tete;
-                while (courant.suivant != null && courant.suivant.valeur < x) {
+            } else {
+                Cellule<T> courant = tete;
+                while (courant.suivant != null && courant.suivant.valeur.compareTo(x) < 0) {
                     courant = courant.suivant;
                 }
                 nouvelle.suivant = courant.suivant;
@@ -52,28 +52,28 @@ public class EnsembleOrdonneChaine implements EnsembleOrdonne {
     }
 
     @Override
-    public void supprimer(int x) {
+    public void supprimer(T x) {
         if (tete == null) return;
 
-        if (tete.valeur == x) { // Suppression de la tête
+        if (tete.valeur.equals(x)) {
             tete = tete.suivant;
             taille--;
             return;
         }
 
-        Cellule courant = tete;
-        while (courant.suivant != null && courant.suivant.valeur != x) {
+        Cellule<T> courant = tete;
+        while (courant.suivant != null && !courant.suivant.valeur.equals(x)) {
             courant = courant.suivant;
         }
 
-        if (courant.suivant != null) { // Suppression d'un élément dans la liste
+        if (courant.suivant != null) {
             courant.suivant = courant.suivant.suivant;
             taille--;
         }
     }
 
     @Override
-    public int min() {
+    public T min() {
         if (estVide()) {
             throw new IllegalStateException("L'ensemble est vide.");
         }

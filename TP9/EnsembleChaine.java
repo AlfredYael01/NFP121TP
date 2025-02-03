@@ -1,8 +1,8 @@
 /**
- * Implémentation d'un ensemble d'entiers avec une liste chaînée.
+ * Implémentation d'un ensemble générique sous forme de liste chaînée.
  */
-public class EnsembleChaine implements Ensemble {
-    private Cellule tete;
+public class EnsembleChaine<T> implements Ensemble<T> {
+    private Cellule<T> tete;
     private int taille;
 
     public EnsembleChaine() {
@@ -21,10 +21,10 @@ public class EnsembleChaine implements Ensemble {
     }
 
     @Override
-    public boolean contient(int x) {
-        Cellule courant = tete;
+    public boolean contient(T x) {
+        Cellule<T> courant = tete;
         while (courant != null) {
-            if (courant.valeur == x) {
+            if (courant.valeur.equals(x)) {
                 return true;
             }
             courant = courant.suivant;
@@ -33,24 +33,24 @@ public class EnsembleChaine implements Ensemble {
     }
 
     @Override
-    public void ajouter(int x) {
+    public void ajouter(T x) {
         if (!contient(x)) {
-            tete = new Cellule(x, tete);
+            tete = new Cellule<>(x, tete);
             taille++;
         }
     }
 
     @Override
-    public void supprimer(int x) {
-        Cellule courant = tete, precedent = null;
+    public void supprimer(T x) {
+        Cellule<T> courant = tete, precedent = null;
 
-        while (courant != null && courant.valeur != x) {
+        while (courant != null && !courant.valeur.equals(x)) {
             precedent = courant;
             courant = courant.suivant;
         }
 
-        if (courant != null) {
-            if (precedent == null) {
+        if (courant != null) { // Élement trouvé
+            if (precedent == null) { // Suppression de la tête
                 tete = tete.suivant;
             } else {
                 precedent.suivant = courant.suivant;
