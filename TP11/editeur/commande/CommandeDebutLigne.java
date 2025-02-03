@@ -1,9 +1,9 @@
 package editeur.commande;
 import editeur.Ligne;
-import util.Console;
-public class DebutLigne extends CommandeLigne
+
+public class CommandeDebutLigne extends CommandeLigne
 {
-    public DebutLigne(Ligne l)
+    public CommandeDebutLigne(Ligne l)
     {
         super(l);
     }

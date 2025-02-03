@@ -16,9 +16,9 @@ public class EditeurLigne {
 
 	/** Le menu principal de l'éditeur */
 	private Menu menuPrincipal;
-		// Remarque : Tous les éditeurs ont le même menu mais on
-		// ne peut pas en faire un attribut de classe car chaque
-		// commande doit manipuler la ligne propre à un éditeur !
+	// Remarque : Tous les éditeurs ont le même menu mais on
+	// ne peut pas en faire un attribut de classe car chaque
+	// commande doit manipuler la ligne propre à un éditeur !
 
 	/** Initialiser l'éditeur à partir de la lign à éditer. */
 	public EditeurLigne(Ligne l) {
@@ -27,15 +27,16 @@ public class EditeurLigne {
 		// Créer le menu principal
 		menuPrincipal = new Menu("Menu principal");
 		menuPrincipal.ajouter("Ajouter un texte en fin de ligne",
-					new CommandeAjouterFin(ligne));
+				new CommandeAjouterFin(ligne));
 		menuPrincipal.ajouter("Avancer le curseur d'un caractère",
-					new CommandeCurseurAvancer(ligne));
+				new CommandeCurseurAvancer(ligne));
 		menuPrincipal.ajouter("Reculer le curseur d'un caractère",
-					new CommandeCurseurReculer(ligne));
+				new CommandeCurseurReculer(ligne));
 		menuPrincipal.ajouter("Placer le curseur en début de ligne",
-					new DebutLigne(ligne));
+				new CommandeDebutLigne(ligne));
+		menuPrincipal.ajouter("Supprimer le caractère sélectionné",
+				new CommandeSupprimerCaractereCurseur(ligne));
 	}
-
 	public void editer() {
 		do {
 			// Afficher la ligne
