@@ -2,124 +2,120 @@ package TPMorpion.src;
 
 import javax.swing.*;
 import java.awt.*;
-import javax.swing.event.*;
-import java.awt.event.*;
-import java.util.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.HashMap;
+import java.util.Map;
 
 /** Programmation d'un jeu de Morpion avec une interface graphique Swing.
-  *
-  * REMARQUE : Dans cette solution, le patron MVC n'a pas été appliqué !
-  * On a un modèle (?), une vue et un contrôleur qui sont fortement liés.
-  *
-  * @author	Xavier Crégut
-  * @version	$Revision: 1.4 $
-  */
+ *
+ * REMARQUE : Dans cette solution, le patron MVC n'a pas été appliqué !
+ * On a un modèle (?), une vue et un contrôleur qui sont fortement liés.
+ *
+ * @author	Xavier Crégut
+ * @version	$Revision: 1.4 $
+ */
 
 public class MorpionSwing {
 
 	// les images à utiliser en fonction de l'état du jeu.
-	private static final Map<ModeleMorpion.Etat, ImageIcon> images
-		= new HashMap<ModeleMorpion.Etat, ImageIcon>();
+	private static final Map<ModeleMorpion.Etat, ImageIcon> images = new HashMap<>();
 	static {
 		images.put(ModeleMorpion.Etat.VIDE, new ImageIcon("blanc.jpg"));
 		images.put(ModeleMorpion.Etat.CROIX, new ImageIcon("croix.jpg"));
 		images.put(ModeleMorpion.Etat.ROND, new ImageIcon("rond.jpg"));
 	}
 
-// Choix de réalisation :
-// ----------------------
-//
-//  Les attributs correspondant à la structure fixe de l'IHM sont définis
-//	« final static » pour montrer que leur valeur ne pourra pas changer au
-//	cours de l'exécution.  Ils sont donc initialisés sans attendre
-//  l'exécution du constructeur !
-
-	private ModeleMorpion modele;	// le modèle du jeu de Morpion
-
-//  Les éléments de la vue (IHM)
-//  ----------------------------
-
-	/** Fenêtre principale */
+	private ModeleMorpionSimple modele;
 	private JFrame fenetre;
+	private JLabel[][] cases = new JLabel[3][3];
+	private JLabel joueur;
 
-	/** Bouton pour quitter */
-	private final JButton boutonQuitter = new JButton("Q");
-
-	/** Bouton pour commencer une nouvelle partie */
-	private final JButton boutonNouvellePartie = new JButton("N");
-
-	/** Cases du jeu */
-	private final JLabel[][] cases = new JLabel[3][3];
-
-	/** Zone qui indique le joueur qui doit jouer */
-	private final JLabel joueur = new JLabel();
-
-
-// Le constructeur
-// ---------------
+	// Le constructeur
+	// ---------------
 
 	/** Construire le jeu de morpion */
 	public MorpionSwing() {
-		this(new ModeleMorpionSimple());
+		this.modele = new ModeleMorpionSimple();
+		initUI();
 	}
 
-	/** Construire le jeu de morpion */
-	public MorpionSwing(ModeleMorpion modele) {
-		// Initialiser le modèle
-		this.modele = modele;
+	/** Initialiser l'interface utilisateur */
+	private void initUI() {
+		fenetre = new JFrame("Morpion");
+		fenetre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		fenetre.setLayout(new BorderLayout());
 
-		// Créer les cases du Morpion
-		for (int i = 0; i < this.cases.length; i++) {
-			for (int j = 0; j < this.cases[i].length; j++) {
-				this.cases[i][j] = new JLabel();
+		// Création de la grille du jeu
+		JPanel grille = new JPanel(new GridLayout(3, 3));
+		for (int i = 0; i < 3; i++) {
+			for (int j = 0; j < 3; j++) {
+				cases[i][j] = new JLabel(images.get(ModeleMorpion.Etat.VIDE));
+				cases[i][j].setPreferredSize(new Dimension(100, 100));
+				int x = i, y = j;
+				cases[i][j].addMouseListener(new MouseAdapter() {
+					@Override
+					public void mouseClicked(MouseEvent e) {
+						jouer(x, y);
+					}
+				});
+				grille.add(cases[i][j]);
 			}
 		}
 
-		// Initialiser le jeu
-		this.recommencer();
+		// Zone affichant le joueur actuel et bouton de redémarrage
+		joueur = new JLabel(images.get(modele.getJoueur()));
+		JButton restart = new JButton("Nouvelle Partie");
+		restart.addActionListener(e -> recommencer());
 
-		// Construire la vue (présentation)
-		//	Définir la fenêtre principale
-		this.fenetre = new JFrame("Morpion");
-		this.fenetre.setLocation(100, 200);
+		JPanel panel = new JPanel();
+		panel.add(joueur);
+		panel.add(restart);
 
-		// Construire le contrôleur (gestion des événements)
-		this.fenetre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		fenetre.add(grille, BorderLayout.CENTER);
+		fenetre.add(panel, BorderLayout.SOUTH);
 
-		// afficher la fenêtre
-		this.fenetre.pack();			// redimmensionner la fenêtre
-		this.fenetre.setVisible(true);	// l'afficher
+		fenetre.pack();
+		fenetre.setVisible(true);
 	}
 
-// Quelques réactions aux interactions de l'utilisateur
-// ----------------------------------------------------
+	// Quelques réactions aux interactions de l'utilisateur
+	// ----------------------------------------------------
+
+	/** Jouer un coup en (x, y) */
+	private void jouer(int x, int y) {
+		try {
+			modele.cocher(x, y);
+			cases[x][y].setIcon(images.get(modele.getValeur(x, y)));
+			if (modele.estGagnee()) {
+				JOptionPane.showMessageDialog(fenetre, "Le joueur " + modele.getJoueur() + " a gagné !");
+				recommencer();
+			} else if (modele.estTerminee()) {
+				JOptionPane.showMessageDialog(fenetre, "Match nul !");
+				recommencer();
+			} else {
+				joueur.setIcon(images.get(modele.getJoueur()));
+			}
+		} catch (CaseOccupeeException e) {
+			JOptionPane.showMessageDialog(fenetre, "Case déjà occupée !", "Erreur", JOptionPane.ERROR_MESSAGE);
+		}
+	}
 
 	/** Recommencer une nouvelle partie. */
-	public void recommencer() {
-		this.modele.recommencer();
-
-		// Vider les cases
-		for (int i = 0; i < this.cases.length; i++) {
-			for (int j = 0; j < this.cases[i].length; j++) {
-				this.cases[i][j].setIcon(images.get(this.modele.getValeur(i, j)));
+	private void recommencer() {
+		modele.recommencer();
+		for (int i = 0; i < 3; i++) {
+			for (int j = 0; j < 3; j++) {
+				cases[i][j].setIcon(images.get(ModeleMorpion.Etat.VIDE));
 			}
 		}
-
-		// Mettre à jour le joueur
 		joueur.setIcon(images.get(modele.getJoueur()));
 	}
 
-
-
-// La méthode principale
-// ---------------------
+	// La méthode principale
+	// ---------------------
 
 	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				new MorpionSwing();
-			}
-		});
+		SwingUtilities.invokeLater(MorpionSwing::new);
 	}
-
 }
