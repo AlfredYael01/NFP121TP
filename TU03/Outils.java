@@ -30,6 +30,12 @@ public class Outils {
             List<E> source,
             Critere<E> aGarder,
             List<E> resultat) {
+        for (E element : source) {
+            if (aGarder.satisfaitSur(element)) {
+                resultat.add(element);
+            }
+        }
+    }
         // TODO : à corriger
     }
 

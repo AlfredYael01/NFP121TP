@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="TU03">
+    <CLASSES />
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/TU03/TU03.jar!/" />
+      <root url="jar://$PROJECT_DIR$/TU03/TU03-packages.jar!/" />
+    </SOURCES>
+  </library>
+</component>
