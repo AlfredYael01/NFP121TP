@@ -1,3 +1,5 @@
+import junit.framework.TestCase;
+
 /** Classe regroupant les tests unitaires de la classe Monnaie.  */
 public class MonnaieTest {
 

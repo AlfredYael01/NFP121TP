@@ -5,6 +5,7 @@
  * @version	$Revision: 1.1 $
  */
 public class Monnaie {
+
 	private int valeur;
 	private String devise;
 

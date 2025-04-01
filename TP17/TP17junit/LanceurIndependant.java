@@ -74,6 +74,7 @@ public class LanceurIndependant {
 
 	public static void main(String... args) {
 		LanceurIndependant lanceur = new LanceurIndependant(args);
+
 	}
 
 }
