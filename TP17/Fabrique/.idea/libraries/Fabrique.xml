@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="Fabrique">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/TP17fabrique-packages.jar!/" />
+      <root url="jar://$PROJECT_DIR$/TP17fabrique.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
