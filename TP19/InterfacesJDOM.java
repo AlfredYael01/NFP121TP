@@ -12,30 +12,77 @@ public class InterfacesJDOM {
 
 	/** Afficher le nombre d'interfaces automatiques. */
 	public static void afficherNombreInterfacesAutomatiques(Document doc) {
+		List<Element> autos = doc.getRootElement().getChildren("auto");
+		int total = 0;
+		for (Element auto : autos) {
+			total += auto.getChildren("name").size();
+		}
+		System.out.println("Nombre d'interfaces automatiques : " + total);
 	}
+
 
 	/** Afficher le nombre d'interfaces spécifiées. */
 	public static void afficherNombreInterfacesSpecifiees(Document doc) {
-		// A COMPLETER...
+		List<Element> ifaces = doc.getRootElement().getChildren("iface");
+		System.out.println("Nombre d'interfaces spécifiées : " + ifaces.size());
 	}
 
 	/** Afficher les noms des interfaces automatiques. */
 	public static void afficherNomsInterfacesAutomatiques(Document doc) {
-		// A COMPLETER...
+		List<Element> autos = doc.getRootElement().getChildren("auto");
+		System.out.print("Interfaces automatiques : ");
+		for (Element auto : autos) {
+			for (Element name : auto.getChildren("name")) {
+				System.out.print(name.getAttributeValue("value") + " ");
+			}
+		}
+		System.out.println();
 	}
+
 
 	/**
 	 * Afficher les noms des interfaces qui utilisent la passerelle
 	 * 147.127.18.200
 	 */
 	public static void afficherNomsInterfacesPasserelle(Document doc) {
-		// A COMPLETER...
+		List<Element> ifaces = doc.getRootElement().getChildren("iface");
+		System.out.print("Interfaces utilisant la passerelle 147.127.18.200 : ");
+		for (Element iface : ifaces) {
+			Element inet = iface.getChild("inet");
+			if (inet != null) {
+				Element stat = inet.getChild("static");
+				if (stat != null) {
+					Element gw = stat.getChild("gateway");
+					if (gw != null && "147.127.18.200".equals(gw.getTextTrim())) {
+						System.out.print(iface.getAttributeValue("name") + " ");
+					}
+				}
+			}
+		}
+		System.out.println();
 	}
+
 
 	/** Afficher les noms des interfaces qui sont définies mais non automatiques */
 	public static void afficherInterfacesDefiniesNonAutomatiques(Document doc) {
-		// A COMPLETER...
+		Set<String> interfacesAuto = new HashSet<>();
+		for (Element auto : doc.getRootElement().getChildren("auto")) {
+			for (Element name : auto.getChildren("name")) {
+				interfacesAuto.add(name.getAttributeValue("value"));
+			}
+		}
+
+		List<Element> ifaces = doc.getRootElement().getChildren("iface");
+		System.out.print("Interfaces définies mais non automatiques : ");
+		for (Element iface : ifaces) {
+			String name = iface.getAttributeValue("name");
+			if (!interfacesAuto.contains(name)) {
+				System.out.print(name + " ");
+			}
+		}
+		System.out.println();
 	}
+
 
 	/**
 	 * Méthode principale.

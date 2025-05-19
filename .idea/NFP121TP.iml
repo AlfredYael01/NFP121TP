@@ -27,7 +27,7 @@
         </SOURCES>
       </library>
     </orderEntry>
-    <orderEntry type="module-library">
+    <orderEntry type="module-library" exported="">
       <library>
         <CLASSES>
           <root url="file://$MODULE_DIR$/TP6/afficheur" />
@@ -36,7 +36,7 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="module-library">
+    <orderEntry type="module-library" exported="">
       <library>
         <CLASSES>
           <root url="jar://$MODULE_DIR$/TP6/TP06.jar!/" />
@@ -47,7 +47,7 @@
         </SOURCES>
       </library>
     </orderEntry>
-    <orderEntry type="module-library">
+    <orderEntry type="module-library" exported="">
       <library>
         <CLASSES>
           <root url="jar://$MODULE_DIR$/TP7/TP07.jar!/" />
@@ -67,5 +67,7 @@
     <orderEntry type="library" exported="" name="TP17fabrique" level="project" />
     <orderEntry type="library" exported="" name="TP17junit" level="project" />
     <orderEntry type="library" exported="" name="projet" level="project" />
+    <orderEntry type="library" exported="" name="TP19" level="project" />
+    <orderEntry type="library" exported="" name="jdom-2.0.6.1" level="project" />
   </component>
 </module>
