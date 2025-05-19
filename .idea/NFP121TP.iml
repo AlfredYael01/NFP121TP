@@ -66,5 +66,6 @@
     <orderEntry type="library" exported="" name="TP15" level="project" />
     <orderEntry type="library" exported="" name="TP17fabrique" level="project" />
     <orderEntry type="library" exported="" name="TP17junit" level="project" />
+    <orderEntry type="library" exported="" name="projet" level="project" />
   </component>
 </module>
